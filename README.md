@@ -76,7 +76,7 @@ sh run_dev.sh
 * Al hacer un commit en la rama "master" se activa el workflow de Github Actions, se construye y publican las imagenes docker de la aplicación backend.
 
 
-# Deploy Manual Producción
+## Deploy Manual Producción
 
 * Generar imagen docker asignado una nueva versión (Local)
 
