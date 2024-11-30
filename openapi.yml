@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Flask API
+  description: API para gestionar información sobre personajes.
+  version: 1.0.0
+servers:
+  - url: https://flask-api.gonzch.com
+    description: Servidor Producción
+  - url: http://localhost:5000
+    description: Servidor local
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthInput:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Nombre de usuario
+        password:
+          type: string
+          description: Contraseña
+    AuthOutput:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Token de autenticación
+    Character:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único del personaje
+        name:
+          type: string
+          description: Nombre del personaje
+        height:
+          type: integer
+          description: Altura del personaje
+        mass:
+          type: integer
+          description: Peso del personaje
+        hair_color:
+          type: string
+          description: Color de cabello del personaje
+        skin_color:
+          type: string
+          description: Color de piel del personaje
+        eye_color:
+          type: string
+          description: Color de ojos del personaje
+        birth_year:
+          type: string
+          description: Año de nacimiento del personaje
+    CharacterInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del personaje
+        height:
+          type: integer
+          description: Altura del personaje
+        mass:
+          type: integer
+          description: Peso del personaje
+        hair_color:
+          type: string
+          description: Color de cabello del personaje
+        skin_color:
+          type: string
+          description: Color de piel del personaje
+        eye_color:
+          type: string
+          description: Color de ojos del personaje
+        birth_year:
+          type: string
+          description: Año de nacimiento del personaje
+paths:
+  /auth:
+    post:
+      summary: Solicitar token de autenticación
+      description: Retorna un token de autenticación JWT.
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthInput"
+      responses:
+        "200":
+          description: Token de autenticación generado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthOutput"
+  /character/getAll:
+    get:
+      summary: Obtener lista de personajes
+      description: Retorna una lista de todos los personajes disponibles.
+      responses:
+        "200":
+          description: Lista de personajes recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Character"
+  /character/get/{id}:
+    get:
+      summary: Obtener un personaje
+      description: Retorna un personaje específico identificado por su ID.
+      responses:
+        "200":
+          description: Personaje recuperado con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Character"
+  /character/add:
+    post:
+      summary: Crear un nuevo personaje
+      description: Agrega un nuevo personaje a la base de datos.
+      security:
+        - BearerAuth: []
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CharacterInput"
+      responses:
+        "201":
+          description: Personaje creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Character"
+  /character/delete/{id}:
+    delete:
+      summary: Eliminar un personaje
+      description: Elimina un personaje existente identificado por su ID.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: ID del personaje a eliminar
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Personaje eliminado con éxito
