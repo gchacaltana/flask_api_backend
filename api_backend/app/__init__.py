@@ -15,7 +15,7 @@ def create_app():
     Crea una instancia de la aplicación de Flask.
     """
     app = Flask(__name__)
-    jwt = JWTManager(app)
+    JWTManager(app)
 
     # Configuración de la base de datos
     app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLAlchemyConfig.SQLALCHEMY_DATABASE_URI
