@@ -24,7 +24,7 @@ class JWTConfig:
     """
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(
-        minutes=int(os.getenv("JWT_EXPIRES_MIN")))
+        minutes=int(os.getenv("JWT_EXPIRES_MIN", "30")))
 
 
 class Setting(
