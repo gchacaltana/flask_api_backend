@@ -1,0 +1,30 @@
+# Ignorar los archivos y carpetas que no son necesarios para el contenedor
+
+# Ignorar entornos virtuales
+venv/
+env/
+
+# Ignorar archivos de configuración locales
+*.env
+*.sqlite3
+
+# Ignorar archivos temporales de editores
+.idea/
+.vscode/
+
+# Ignorar archivos de Python compilados
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos de pruebas
+tests/
+
+# Ignorar carpetas de migraciones si no son necesarias
+migrations/
+
+# Ignorar archivos de bases de datos
+*.db
