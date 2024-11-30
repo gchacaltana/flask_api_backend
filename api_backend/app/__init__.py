@@ -5,21 +5,34 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from app.config import settings
+from app.config.settings import ApplicationConfig, TestingConfig
 
 db = SQLAlchemy()
 ma = Marshmallow()
 
-def create_app():
+def create_app(config_name='development'):
     """
     Crea una instancia de la aplicación de Flask.
     """
     app = Flask(__name__)
-    JWTManager(app)
 
-    # Configuración de la base de datos
-    app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLAlchemyConfig.SQLALCHEMY_DATABASE_URI
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # Configurar la app según el entorno
+    if config_name == 'development':
+        app.config.from_object(ApplicationConfig)
+        app.config['SQLALCHEMY_DATABASE_URI'] = ApplicationConfig.SQLALCHEMY_DATABASE_URI
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    elif config_name == 'testing':
+        app.config.from_object(TestingConfig)
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+        app.config['TESTING'] = True
+    elif config_name == 'production':
+        app.config.from_object(ApplicationConfig)
+        app.config['SQLALCHEMY_DATABASE_URI'] = ApplicationConfig.SQLALCHEMY_DATABASE_URI
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    else:
+        raise ValueError(f"Unknown config_name: {config_name}")
+
+    JWTManager(app)
 
     # Inicialización de extensiones
     db.init_app(app)
