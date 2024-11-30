@@ -26,8 +26,7 @@ class JWTConfig:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(
         minutes=int(os.getenv("JWT_EXPIRES_MIN", "30")))
 
-
-class Setting(
+class ApplicationConfig(
     SQLAlchemyConfig, JWTConfig
 ):
     """
@@ -38,5 +37,11 @@ class Setting(
     PORT = os.getenv("APP_PORT")
     DEBUG = os.getenv("APP_DEBUG", "false").lower() == "true"
     APP_ENVIRONMENT = os.getenv("APP_ENVIRONMENT")
-    SECRET_KEY = os.getenv("SECRET_KEY")
     PAGINATE_PER_PAGE = int(os.getenv("PAGINATE_PER_PAGE", "10"))
+
+class TestingConfig(ApplicationConfig):
+    """
+    Configuración para pruebas.
+    """
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    TESTING = True
