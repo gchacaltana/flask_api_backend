@@ -8,7 +8,7 @@ from marshmallow import ValidationError
 from app.exceptions.api_exception import APIException
 from app.exceptions.resource_not_found_exception import ResourceNotFoundException
 from flask_jwt_extended import jwt_required
-from app.config.settings import Setting
+from app.config.settings import ApplicationConfig
 from app.services.character_service import (
     get_characters_service, add_character_service, validate_character_exists,
     delete_character_service
@@ -32,7 +32,7 @@ def get_characters_route():
         # Parametros de paginación
         page = request.args.get('page', 1, type=int)
         per_page = request.args.get(
-            'per_page', Setting.PAGINATE_PER_PAGE, type=int)
+            'per_page', ApplicationConfig.PAGINATE_PER_PAGE, type=int)
         return jsonify(get_characters_service(page, per_page)), 200
     except APIException as err:
         return jsonify({"errors": str(err)}), 500
