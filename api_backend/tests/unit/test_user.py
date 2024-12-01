@@ -1,6 +1,5 @@
 import pytest
 from app import create_app, db
-from app.models.user import User
 from app.repositories.user_repository import save_user, get_user_by_username
 
 @pytest.fixture
