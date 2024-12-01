@@ -38,10 +38,18 @@ Werkzeug==3.1.3
 
 * URL: https://app.swaggerhub.com/apis/gchacaltanab/flask-api/1.0.0
 
-## Ejecución de Pruebas Unitarias
+## Ejecución de Pruebas
+
+* Ejecutar pruebas unitarias
 
 ```bash
-pytest
+pytest api_backend/tests/unit/
+```
+
+* Ejecutar pruebas de integración
+
+```bash
+pytest api_backend/tests/integration/
 ```
 
 ## Desplegar en entorno desarrollo
