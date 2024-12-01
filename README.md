@@ -79,18 +79,17 @@ sh run_dev.sh
 
 ## Deploy Automatico - Integración con Github Actions
 
-* Al hacer un commit en la rama "master" se activa el workflow de Github Actions, se construye y publican las imagenes docker de la aplicación backend.
-
+* Al realizar un commit o PR en la rama master, se activa un workflow de GitHub Actions que construye, publica y despliega automáticamente la imagen Docker de la aplicación backend.
 
 ## Deploy Manual Producción
 
-* Generar imagen docker asignado una nueva versión (Local)
+* Generar y publicar imagen docker (Local)
 
 ```bash
-docker build . -t ghcr.io/<github_account>/flask_api:<app_version> && docker push ghcr.io/gchacaltana/flask_api:<app_version>
+docker build . -t <dockerhub_account>/flask_api:latest && docker push <dockerhub_account>/flask_api:latest
 ```
 
-* Ingresar a servidor, cambiar versión de imagen en docker-compose.yml y levantar aplicación.
+* Levantar aplicación desde el docker-compose.yml (Producción)
 
 ```bash
 docker-compose up -d
