@@ -75,7 +75,22 @@ pip install -r requirements.txt
 py api_backend/scripts/create_user.py
 ```
 
-5. Desplegar aplicación
+5. Crear archivo .env en directorio raíz del proyecto con siguiente estructura
+
+```bash
+APP_ENVIRONMENT="development"
+DEBUG=true
+PORT=5000
+APP_NAME="Flask API"
+APP_VERSION="1.0.0"
+APP_HOST="localhost"
+JWT_SECRET_KEY="<secret>"
+JWT_EXPIRES_MIN=30
+DB_URI=sqlite:///db.sqlite3
+PAGINATE_PER_PAGE=5
+```
+
+6. Ejecutar aplicación en local
 
 ```bash
 # Linux
